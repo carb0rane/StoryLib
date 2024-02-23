@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="storyVisitedColor">#009988</color>
+    <color name="storyUnVisitedColor">#33009988</color>
+    <color name="progressBarPrimaryColor">#38A3A5</color>
+    <color name="progressBarSecondaryColor">#FFCC80</color>
+</resources>

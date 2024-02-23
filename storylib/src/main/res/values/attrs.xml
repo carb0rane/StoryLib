@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="StoryBadgeManager">
+        <attr name="barBackgroundColor" format="color"/>
+        <attr name="storyVisitedColor" format="color"/>
+        <attr name="storyUnVisitedColor" format="color"/>
+        <attr name="barHeight" format="integer" />
+        <attr name="iRadius" format="integer" />
+        <attr name="bWidth" format="integer" />
+        <attr name="barPrimaryColor" format="color" />
+        <attr name="barSecondaryColor" format="color" />
+        <attr name="barStoryPlaybackDuration" format="integer" />
+        <attr name="barOwnerTextColor" format="color"/>
+        <attr name="barDisplayTimeTextColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="LinearStoryProgressIndicator">
+        <attr name="progressBarHeight" format="dimension" />
+        <attr name="gapBetweenProgressBar" format="dimension" />
+        <attr name="primaryColor" format="color" />
+        <attr name="secondaryColor" format="color" />
+        <attr name="storyPlaybackDuration" format="integer" />
+    </declare-styleable>
+</resources>

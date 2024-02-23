@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="story_imageview_content_description">This is the Story Image</string>
+    <string name="story_tv_name">Carb0rane</string>
+    <string name="sample_time">17:04 PM</string>
+    <string name="story_url_intent_tag">storyURLs</string>
+    <string name="DEFAULT_STORY_IMAGE_RADIUS_IN_DP">150</string>
+    <string name="DEFAULT_STORY_BADGE_WIDTH_IN_DP">3</string>
+    <string name="DEFAULT_BAR_HEIGHT">15</string>
+    <string name="DEFAULT_BAR_GAP">5</string>
+    <string name="DEFAULT_DURATION">3000</string>
+
+</resources>
