@@ -45,7 +45,7 @@ publishing{
         create<MavenPublication>("Maven"){
             groupId = "com.carb0rane"
             artifactId = "storylib"
-            version = "0.0.1-alpha"
+            version = "0.0.3-alpha"
             artifact("$buildDir/outputs/aar/storylib-release.aar")
         }
     }
@@ -54,8 +54,8 @@ publishing{
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/carb0rane/storylib")
             credentials {
-                username  = System.getenv("GITHUB_USER")
-                password = System.getenv("GITHUB_TOKEN")
+                username  = project.findProperty("githubUserName").toString()
+                password =  project.findProperty("githubToken").toString()
             }
         }
 

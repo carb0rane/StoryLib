@@ -21,29 +21,31 @@ import java.util.Date
 
 private const val TAG = "StoryBadgeManager"
 
-class StoryBadgeManager : View {
+class StoryBadgeManager(context: Context?, attrs: AttributeSet?) :
+    View(context, attrs) {
 
 
-    private var rectSideInPx = 153
-    private var arcWidthPx = 3
-    private var seenArcColor = 0
-    private var unseenArcColor = 0
+    private var rectSideInPx:Int? = 153
+    private var arcWidthPx:Int? = 3
+    private var seenArcColor:Int? = 0
+    private var unseenArcColor:Int? = 0
     private lateinit var badgeImageRect: Rect
     private var imageBitmap: Bitmap? = null
     private val imagesList = arrayListOf<Story>()
     private var owner = "Carb0rane"
     private lateinit var storyPaintObj: Paint
-    private var primaryColor: Int = 0xFF007A //  bright blue
-    private var secondaryColor: Int = 0xFF38A3 //  teal blue
-    private lateinit var barBackgroundColor :Drawable
-    private var displayTimeTextColor: Int = 0xFEFEFE
-    private var ownerTextColor: Int = 0x433443
-    private var duration: Int = 5000
-    private var barHeight: Int = 10
+    private var primaryColor: Int? = 0xFF007A //  bright blue
+    private var secondaryColor: Int? = 0xFF38A3 //  teal blue
+    private  var barBackgroundColor :Drawable?
+    private var displayTimeTextColor: Int? = 0xFEFEFE
+    private var ownerTextColor: Int? = 0x433443
+    private var duration: Int? = 5000
+    private var barHeight: Int? = 10
+    private var radius = 2.24f
 
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+
+     init {
         val ta = context?.obtainStyledAttributes(
             attrs,
             R.styleable.StoryBadgeManager,
@@ -54,48 +56,48 @@ class StoryBadgeManager : View {
             arcWidthPx = ta?.getInt(
                 R.styleable.StoryBadgeManager_bWidth,
                 3
-            )!!.dpToPx(context)
-            rectSideInPx = ta.getInt(
+            )?.dpToPx(context)
+            rectSideInPx = ta?.getInt(
                 R.styleable.StoryBadgeManager_iRadius,
                150
-            ).dpToPx(context)
-            unseenArcColor = ta!!.getColor(
+            )?.dpToPx(context)
+            unseenArcColor = ta?.getColor(
                 R.styleable.StoryBadgeManager_storyUnVisitedColor,
                 ContextCompat.getColor(context, R.color.storyUnVisitedColor)
             )
-            seenArcColor = ta.getColor(
+            seenArcColor = ta?.getColor(
                 R.styleable.StoryBadgeManager_storyVisitedColor,
                 ContextCompat.getColor(context, R.color.storyVisitedColor)
             )
-            primaryColor = ta.getColor(
+            primaryColor = ta?.getColor(
                 R.styleable.StoryBadgeManager_barPrimaryColor,
                 ContextCompat.getColor(context, R.color.progressBarPrimaryColor)
             )
-            secondaryColor = ta.getColor(
+            secondaryColor = ta?.getColor(
                 R.styleable.StoryBadgeManager_barSecondaryColor,
                 ContextCompat.getColor(context, R.color.progressBarSecondaryColor)
 
             )
-            barBackgroundColor = ta.getDrawable(
+            barBackgroundColor = ta?.getDrawable(
                 R.styleable.StoryBadgeManager_barBackgroundColor
-            )!!
+            )
 
 
-            duration = ta.getInt(
+            duration = ta?.getInt(
                 R.styleable.StoryBadgeManager_barStoryPlaybackDuration,
                 3000
             )
 
-            barHeight = ta.getInt(
+            barHeight = ta?.getInt(
                 R.styleable.StoryBadgeManager_barHeight,
                 15
             )
-            ownerTextColor = ta.getColor(
+            ownerTextColor = ta?.getColor(
                 R.styleable.StoryBadgeManager_barOwnerTextColor,
                 ContextCompat.getColor(context, R.color.progressBarSecondaryColor)
 
             )
-            displayTimeTextColor = ta.getColor(
+            displayTimeTextColor = ta?.getColor(
                 R.styleable.StoryBadgeManager_barDisplayTimeTextColor,
                 ContextCompat.getColor(context, R.color.progressBarSecondaryColor)
 
@@ -108,7 +110,7 @@ class StoryBadgeManager : View {
         }
     }
 
-    fun storyPlayer() {
+    private fun storyPlayer() {
         val intnt = Intent(context, SlideShowActivity::class.java)
         intnt.putExtra("duration", duration)
         intnt.putExtra("barHeight", barHeight)
@@ -122,21 +124,9 @@ class StoryBadgeManager : View {
 
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
-
-    constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
-    ) : super(context, attrs, defStyleAttr, defStyleRes)
 
 
-    fun setValues() {
+    private fun setValues() {
         if (context != null) {
 
 
@@ -150,8 +140,8 @@ class StoryBadgeManager : View {
             badgeImageRect = Rect(
                 0,
                 0,
-                rectSideInPx,
-                rectSideInPx
+                rectSideInPx!!,
+                rectSideInPx!!
             )
 
         }
@@ -159,6 +149,9 @@ class StoryBadgeManager : View {
 
     fun setStoryOwner(owner: String) {
         this.owner = owner
+    }
+    fun setRadius(rad:Float){
+        this.radius = rad
     }
 
     fun setStoriesList(vararg url: String) {
@@ -207,17 +200,17 @@ class StoryBadgeManager : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        storyPaintObj.setColor(unseenArcColor)
-        storyPaintObj.strokeWidth = arcWidthPx.toFloat()
+        storyPaintObj.color = unseenArcColor!!
+        storyPaintObj.strokeWidth = arcWidthPx!!.toFloat()
         var startAngle = 1.0
         val sweepAngle = (360 - (imagesList.size * 6)) / imagesList.size.toFloat()
         for (i in 0 until imagesList.size) {
 
             canvas.drawArc(
-                arcWidthPx.toFloat(),
-                arcWidthPx.toFloat(),
-                rectSideInPx.toFloat()-arcWidthPx.toFloat(),
-                rectSideInPx.toFloat()-arcWidthPx.toFloat(),
+                arcWidthPx!!.toFloat(),
+                arcWidthPx!!.toFloat(),
+                rectSideInPx!!.toFloat()-arcWidthPx!!.toFloat(),
+                rectSideInPx!!.toFloat()-arcWidthPx!!.toFloat(),
                 startAngle.toFloat(),
                 sweepAngle,
                 false,
@@ -235,7 +228,7 @@ class StoryBadgeManager : View {
             path.addCircle(
                 badgeImageRect.centerX().toFloat(),
                 badgeImageRect.centerY().toFloat(),
-                badgeImageRect.width() / 2.24f, // ye 2.24 achha laga to rehne diye
+                badgeImageRect.width() / radius, // ye 2.24 achha laga to rehne diye
                 Path.Direction.CW
             )
             canvas.clipPath(path)
@@ -248,8 +241,8 @@ class StoryBadgeManager : View {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val width = paddingStart + paddingEnd + rectSideInPx
-        val height = paddingTop + paddingBottom + rectSideInPx
+        val width = paddingStart + paddingEnd + rectSideInPx!!
+        val height = paddingTop + paddingBottom + rectSideInPx!!
         val w = resolveSizeAndState(width, widthMeasureSpec, 0)
         val h = resolveSizeAndState(height, heightMeasureSpec, 0)
         setMeasuredDimension(w, h)
