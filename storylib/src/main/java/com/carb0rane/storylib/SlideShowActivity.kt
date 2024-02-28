@@ -3,12 +3,16 @@ package com.carb0rane.storylib
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View.OnTouchListener
 import androidx.annotation.RequiresApi
 import androidx.core.content.IntentCompat
 import coil.ImageLoader
 import coil.load
 import coil.request.ImageRequest
 import com.carb0rane.storylib.databinding.ActivityStoryPlayerBinding
+
 
 private const val TAG = "SlideShowActivity"
 
@@ -55,6 +59,21 @@ class SlideShowActivity : Activity(), PlaybackListener {
         linearStoryProgressIndicator.primaryColor = receivedPrimaryColor
         linearStoryProgressIndicator.secondaryColor = receivedSecondaryColor
         linearStoryProgressIndicator.individualStoryDisplayDuration = receivedDuration.toLong()
+        binding.storyImage.setOnTouchListener(OnTouchListener { v, event ->
+            when(event.action){
+                MotionEvent.ACTION_UP -> {
+
+                   linearStoryProgressIndicator.resumeAnimation()
+                    true
+                }
+                MotionEvent.ACTION_DOWN -> {
+
+                    linearStoryProgressIndicator.pauseAnimation()
+                    true
+                }
+                else -> {false}
+            }
+        })
        // linearStoryProgressIndicator.setBackgroundColor(receivedBarBackgroundColor)
         binding.storyOwnerName.setTextColor(receivedOwnerTextColor)
         binding.storyTimeElapsed.setTextColor(receivedDisplayTimeTextColor)
@@ -63,6 +82,8 @@ class SlideShowActivity : Activity(), PlaybackListener {
 
         linearStoryProgressIndicator.setListener(this)
         linearStoryProgressIndicator.setProgressBarSize(imagesList.size)
+
+
 
     }
 

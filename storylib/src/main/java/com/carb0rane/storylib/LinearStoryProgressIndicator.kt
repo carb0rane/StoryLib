@@ -11,6 +11,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
+import kotlin.math.log
 
 private const val TAG = "LinearStoryProgressIndicator"
 class LinearStoryProgressIndicator(context: Context?, attrs: AttributeSet?) :
@@ -104,7 +105,7 @@ class LinearStoryProgressIndicator(context: Context?, attrs: AttributeSet?) :
     }
 
     private fun test() {
-        Log.d(TAG, "test: I am in test fun ")
+
     }
 
     fun setListener(playbackListener: PlaybackListener) {
@@ -124,14 +125,8 @@ class LinearStoryProgressIndicator(context: Context?, attrs: AttributeSet?) :
     private fun startStoryPlayer(index: Int) {
         customIndex = index
         if (customIndex >= countOfProgressBars) {
-            Log.d(TAG, "startStoryPlayer: in the if")
             playbackListener?.onFinishedPlaying()
         } else {
-
-            Log.d(
-                TAG,
-                "startStoryPlayer: i am animating with $customIndex and the count is $countOfProgressBars "
-            )
             progressBarAnimation = ValueAnimator.ofFloat(0f, singleProgressBarWidth)
             progressBarAnimation?.setDuration(individualStoryDisplayDuration)
             progressBarAnimation?.addUpdateListener { animation ->
@@ -161,7 +156,6 @@ class LinearStoryProgressIndicator(context: Context?, attrs: AttributeSet?) :
             })
 
             progressBarAnimation?.start()
-            Log.d(TAG, "startStoryPlayer: I am in between start on loading image")
             playbackListener?.onStartedPlaying(customIndex)
         }
 
